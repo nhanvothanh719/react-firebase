@@ -1,15 +1,16 @@
 import { initializeApp, type FirebaseOptions } from 'firebase/app'
 import { createContext } from 'react'
+import { firebaseEnv } from '../config/firebase.env'
 
 type FirebaseContextType = {}
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: import.meta.env.API_KEY,
-  authDomain: import.meta.env.AUTH_DOMAIN,
-  projectId: import.meta.env.PROJECT_ID,
-  storageBucket: import.meta.env.STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.MESSAGING_SENDER_ID,
-  appId: import.meta.env.APP_ID,
+  apiKey: firebaseEnv.apiKey,
+  authDomain: firebaseEnv.authDomain,
+  projectId: firebaseEnv.projectId,
+  storageBucket: firebaseEnv.storageBucket,
+  messagingSenderId: firebaseEnv.messagingSenderId,
+  appId: firebaseEnv.appId,
 }
 
 const firebaseApp = initializeApp(firebaseConfig)
