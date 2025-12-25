@@ -1,5 +1,12 @@
 import { useEffect, useState, type PropsWithChildren } from 'react'
-import { FirebaseContext, registerWithEmail, loginWithEmail, loginWithGoogle, firebaseAuth } from '../context/Firebase'
+import {
+  FirebaseContext,
+  registerWithEmail,
+  loginWithEmail,
+  loginWithGoogle,
+  firebaseAuth,
+  createBook,
+} from '../context/Firebase'
 import { onAuthStateChanged, type User } from 'firebase/auth'
 
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
@@ -18,7 +25,9 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
   }, [])
 
   return (
-    <FirebaseContext.Provider value={{ isLoggedIn, registerWithEmail, loginWithEmail, loginWithGoogle }}>
+    <FirebaseContext.Provider
+      value={{ isLoggedIn, user, registerWithEmail, loginWithEmail, loginWithGoogle, createBook }}
+    >
       {children}
     </FirebaseContext.Provider>
   )
