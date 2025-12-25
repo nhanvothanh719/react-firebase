@@ -1,8 +1,8 @@
 import { type PropsWithChildren } from 'react'
-import { FirebaseContext } from '../context/Firebase'
+import { FirebaseContext, registerWithEmail } from '../context/Firebase'
 
 const FirebaseProvider = ({ children }: PropsWithChildren) => {
-  return <FirebaseContext.Provider value>{children}</FirebaseContext.Provider>
+  return <FirebaseContext.Provider value={{ registerWithEmail }}>{children}</FirebaseContext.Provider>
 }
 
 export default FirebaseProvider
