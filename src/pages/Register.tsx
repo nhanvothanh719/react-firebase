@@ -10,8 +10,8 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
-      setIsLoading(true)
       e.preventDefault()
+      setIsLoading(true)
       await firebase.registerWithEmail(email, password)
       alert('Register successfully')
       resetForm()

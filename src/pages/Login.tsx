@@ -10,8 +10,8 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
-      setIsLoading(true)
       e.preventDefault()
+      setIsLoading(true)
       await firebase.loginWithEmail(email, password)
       alert('Login successfully')
       resetForm()
