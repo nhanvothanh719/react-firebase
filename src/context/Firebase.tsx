@@ -11,6 +11,7 @@ import { createContext } from 'react'
 import { firebaseEnv } from '../config/firebase.env'
 
 type FirebaseContextType = {
+  isLoggedIn: boolean
   registerWithEmail: (email: string, password: string) => Promise<UserCredential>
   loginWithEmail: (email: string, password: string) => Promise<UserCredential>
   loginWithGoogle: () => Promise<UserCredential>
@@ -26,7 +27,7 @@ const firebaseConfig: FirebaseOptions = {
 }
 
 const firebaseApp = initializeApp(firebaseConfig)
-const firebaseAuth = getAuth(firebaseApp)
+export const firebaseAuth = getAuth(firebaseApp)
 const googleProvider = new GoogleAuthProvider()
 
 export const registerWithEmail = async (email: string, password: string) => {

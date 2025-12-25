@@ -1,12 +1,20 @@
 import { Button, Form } from 'react-bootstrap'
 import { useFirebase } from '../hooks/useFirebase'
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
   const firebase = useFirebase()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    if (firebase.isLoggedIn) {
+      navigate('/')
+    }
+  }, [firebase, navigate])
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     try {
