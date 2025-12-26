@@ -1,18 +1,31 @@
 import { Route, Routes } from 'react-router-dom'
 
-import RegisterPage from './pages/Register'
+import HeaderNavbar from './components/Navbar'
+import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
+import RegisterPage from './pages/Register'
+import BooksListPage from './pages/books/List'
+import BookDetailsPage from './pages/books/Details'
+import BookOrdersListPage from './pages/orders/List'
+import OrdersListPerBookPage from './pages/orders/ListPerBook'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<h1>Homepage</h1>} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-    </Routes>
+    <div>
+      <HeaderNavbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/books" element={<BooksListPage />} />
+        <Route path="/books/:id" element={<BookDetailsPage />} />
+        <Route path="/orders" element={<BookOrdersListPage />} />
+        <Route path="/orders/books/:id" element={<OrdersListPerBookPage />} />
+      </Routes>
+    </div>
   )
 }
 
