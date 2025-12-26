@@ -10,15 +10,14 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const booksList = await firebase.getBooks()
-      setBooks(booksList)
+      try {
+        const booksList = await firebase.getBooks()
+        setBooks(booksList)
+      } catch (error) {
+        console.error('>>> Fail to get list of books: ', error)
+      }
     }
-
-    try {
-      fetchBooks()
-    } catch (error) {
-      console.error('>>> Fail to get list of books: ', error)
-    }
+    fetchBooks()
   }, [firebase])
 
   return (

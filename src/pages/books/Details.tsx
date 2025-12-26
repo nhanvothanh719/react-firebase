@@ -20,15 +20,14 @@ const BookDetailsPage = () => {
 
   useEffect(() => {
     const fetchBook = async () => {
-      const bookDetails = await firebase.getBookById(params.id ?? '')
+      try {
+        const bookDetails = await firebase.getBookById(params.id ?? '')
       setBook(bookDetails)
+      } catch (error) {
+        console.error('>>> Fail to fetch book details: ', error)
+      }
     }
-
-    try {
-      fetchBook()
-    } catch (error) {
-      console.error('>>> Fail to fetch book details: ', error)
-    }
+    fetchBook()
   }, [firebase, params])
 
   const placeOrder = async () => {
