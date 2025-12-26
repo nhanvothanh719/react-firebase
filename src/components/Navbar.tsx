@@ -9,6 +9,7 @@ const HeaderNavbar = () => {
         <Nav className="me-auto">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/books">Books</NavLink>
+          <NavLink to="/orders">My orders</NavLink>
         </Nav>
       </Container>
     </Navbar>

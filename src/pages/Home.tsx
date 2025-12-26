@@ -26,7 +26,7 @@ const HomePage = () => {
       <h2>Books</h2>
       <CardGroup>
         {books.map((book) => {
-          return <BookCard key={book.id} book={book} />
+          return <BookCard key={book.id} book={book} link={`/books/${book.id}`} />
         })}
       </CardGroup>
     </div>

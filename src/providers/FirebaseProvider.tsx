@@ -8,6 +8,9 @@ import {
   createBook,
   getBooks,
   getBookById,
+  getBooksByAuthorId,
+  placeBookOrder,
+  getOrdersByBookId,
 } from '../context/Firebase'
 import { onAuthStateChanged, type User } from 'firebase/auth'
 
@@ -37,6 +40,9 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
         createBook,
         getBooks,
         getBookById,
+        getBooksByAuthorId,
+        placeBookOrder,
+        getOrdersByBookId,
       }}
     >
       {children}
