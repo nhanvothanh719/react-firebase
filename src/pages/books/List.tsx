@@ -29,7 +29,7 @@ const BooksListPage = () => {
         price: +price,
         coverImg: coverImgFile,
       }
-      const userId = firebase.user ? firebase.user.uid : ''
+      const userId = firebase.user ? firebase.user.uid : null
       await firebase.createBook(book, userId)
       alert('Create book successfully')
       resetInput()

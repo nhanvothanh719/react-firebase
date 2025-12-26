@@ -8,7 +8,7 @@ import {
   type User,
   type UserCredential,
 } from 'firebase/auth'
-import { getFirestore, collection, addDoc } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, getDocs, QuerySnapshot } from 'firebase/firestore'
 // import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { createContext } from 'react'
 import { firebaseEnv } from '../config/firebase.env'
@@ -20,8 +20,11 @@ type FirebaseContextType = {
   registerWithEmail: (email: string, password: string) => Promise<UserCredential>
   loginWithEmail: (email: string, password: string) => Promise<UserCredential>
   loginWithGoogle: () => Promise<UserCredential>
-  createBook: (book: Book, userId: string) => Promise<void>
+  createBook: (book: Book, userId: string | null) => Promise<void>
+  getBooks: () => Promise<QuerySnapshot>
 }
+
+const BOOK_PATH = 'books'
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: firebaseEnv.apiKey,
@@ -51,17 +54,21 @@ export const loginWithGoogle = async () => {
   return await signInWithPopup(firebaseAuth, googleProvider)
 }
 
-export const createBook = async (book: Book, userId: string) => {
+export const createBook = async (book: Book, userId: string | null) => {
   // const bookImgRef = ref(storage, `uploads/images/books/${book.name}-${Date.now()}`)
   // const uploadResult = await uploadBytes(bookImgRef, book.coverImg)
 
-  await addDoc(collection(firestore, 'books'), {
+  await addDoc(collection(firestore, BOOK_PATH), {
     name: book.name,
     isbnNumber: book.isbnNumber,
     price: book.price,
     imageUrl: '', // uploadResult.ref.fullPath
     userId: userId,
   })
+}
+
+export const getBooks = async () => {
+  return await getDocs(collection(firestore, BOOK_PATH))
 }
 
 export const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined)
