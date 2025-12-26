@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useFirebase } from '../hooks/useFirebase'
 import type { BookSchema } from '../types/book.type'
+import BookCard from '../components/Book/Card'
+import { CardGroup } from 'react-bootstrap'
 
 const HomePage = () => {
   const firebase = useFirebase()
@@ -8,14 +10,7 @@ const HomePage = () => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const res = await firebase.getBooks()
-      const booksList = res.docs.map((item) => {
-        const book = item.data()
-        return {
-          ...book,
-          id: item.id,
-        }
-      }) as BookSchema[]
+      const booksList = await firebase.getBooks()
       setBooks(booksList)
     }
 
@@ -29,11 +24,11 @@ const HomePage = () => {
   return (
     <div className="container">
       <h2>Books</h2>
-      <ul>
-        {books.map((item) => {
-          return <li key={item.id}>{item.name}</li>
+      <CardGroup>
+        {books.map((book) => {
+          return <BookCard key={book.id} book={book} />
         })}
-      </ul>
+      </CardGroup>
     </div>
   )
 }

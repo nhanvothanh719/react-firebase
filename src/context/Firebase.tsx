@@ -8,11 +8,11 @@ import {
   type User,
   type UserCredential,
 } from 'firebase/auth'
-import { getFirestore, collection, addDoc, getDocs, QuerySnapshot } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc } from 'firebase/firestore'
 // import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { createContext } from 'react'
 import { firebaseEnv } from '../config/firebase.env'
-import type { Book } from '../types/book.type'
+import type { Book, BookSchema } from '../types/book.type'
 
 type FirebaseContextType = {
   isLoggedIn: boolean
@@ -21,7 +21,8 @@ type FirebaseContextType = {
   loginWithEmail: (email: string, password: string) => Promise<UserCredential>
   loginWithGoogle: () => Promise<UserCredential>
   createBook: (book: Book, userId: string | null) => Promise<void>
-  getBooks: () => Promise<QuerySnapshot>
+  getBooks: () => Promise<BookSchema[]>
+  getBookById: (id: string) => Promise<BookSchema | null>
 }
 
 const BOOK_PATH = 'books'
@@ -68,7 +69,26 @@ export const createBook = async (book: Book, userId: string | null) => {
 }
 
 export const getBooks = async () => {
-  return await getDocs(collection(firestore, BOOK_PATH))
+  const res = await getDocs(collection(firestore, BOOK_PATH))
+  const booksList = res.docs.map((item) => {
+    const book = item.data()
+    return {
+      ...book,
+      id: item.id,
+    }
+  }) as BookSchema[]
+  return booksList
+}
+
+export const getBookById = async (id: string) => {
+  const docRef = doc(firestore, BOOK_PATH, id)
+  const res = await getDoc(docRef)
+  if (!res.exists()) return null
+  const book = {
+    ...res.data(),
+    id: res.id,
+  } as BookSchema
+  return book
 }
 
 export const FirebaseContext = createContext<FirebaseContextType | undefined>(undefined)

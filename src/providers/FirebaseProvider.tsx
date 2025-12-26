@@ -7,6 +7,7 @@ import {
   firebaseAuth,
   createBook,
   getBooks,
+  getBookById,
 } from '../context/Firebase'
 import { onAuthStateChanged, type User } from 'firebase/auth'
 
@@ -27,7 +28,16 @@ const FirebaseProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <FirebaseContext.Provider
-      value={{ isLoggedIn, user, registerWithEmail, loginWithEmail, loginWithGoogle, createBook, getBooks }}
+      value={{
+        isLoggedIn,
+        user,
+        registerWithEmail,
+        loginWithEmail,
+        loginWithGoogle,
+        createBook,
+        getBooks,
+        getBookById,
+      }}
     >
       {children}
     </FirebaseContext.Provider>
